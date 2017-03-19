@@ -38,7 +38,11 @@ class Modul(models.Model):
 
 class Konten(models.Model):
     module = models.ForeignKey(Modul, related_name='contents')  # Define ForeignKey to Modul model
-    content_type = models.ForeignKey(ContentType)
+    content_type = models.ForeignKey(ContentType,
+            limit_choices_to={'model__in':('teks',
+                'video',
+                'gambar',
+                'file')})
     object_id = models.PositiveIntegerField() # Store pimary key
     item = GenericForeignKey('content_type', 'object_id') # Generic relation to associate objects from different models
 
@@ -60,7 +64,7 @@ class Teks(KontenBase):
 class File(KontenBase):
     file = models.FileField(upload_to='files')
 
-class Gambar(KontenBas):
+class Gambar(KontenBase):
     file = models.FileField(upload_to='images')
 
 class Video(KontenBase):
