@@ -13,7 +13,7 @@ class ModulInline(admin.StackedInline):
 @admin.register(Kursus)
 class KursusAdmin(admin.ModelAdmin):
     list_display = ['title', 'judul', 'created']
-    list_filter = ['created', 'field']
+    list_filter = ['created', 'judul']
     search_fields = ['title', 'overview']
     prepopulated_fields = {'slug': ('title',)}
     inlines = [ModulInline]
