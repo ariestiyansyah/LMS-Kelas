@@ -50,7 +50,7 @@ class KontenBase(models.Model):
     xman = models.ForeignKey(User, related_name='%(class)s_related')
     title = models.CharField(max_length=100)
     created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(autp_now_add=True)
+    updated = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         abstract = True
