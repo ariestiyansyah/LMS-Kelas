@@ -1,0 +1,42 @@
+[
+{
+  "fields": {
+    "slug": "engineering",
+    "title": "Engineering"
+  },
+  "model": "lms.judul",
+  "pk": 1
+},
+{
+  "fields": {
+    "slug": "Art",
+    "title": "Art"
+  },
+  "model": "lms.judul",
+  "pk": 2
+},
+{
+  "fields": {
+    "xman": 1,
+    "title": "Engineering 101",
+    "overview": "Engineering 101 is...",
+    "created": "2017-03-19T16:18:03.149Z",
+    "judul": 1,
+    "slug": "engineering-101"
+  },
+  "model": "lms.kursus",
+  "pk": 1
+},
+{
+  "fields": {
+    "xman": 1,
+    "title": "Art 101",
+    "overview": "Art 101",
+    "created": "2017-03-19T16:18:39.846Z",
+    "judul": 2,
+    "slug": "art-101"
+  },
+  "model": "lms.kursus",
+  "pk": 2
+}
+]
