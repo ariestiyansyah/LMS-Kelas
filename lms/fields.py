@@ -1,5 +1,5 @@
 from django.db import models
-from django.core.extensions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist
 
 class OrderField(models.PositiveIntegerField):
 
@@ -7,8 +7,8 @@ class OrderField(models.PositiveIntegerField):
         self.for_fields = for_fields
         super(OrderField, self).__init__(*args, **kwargs)
 
-    def pre_sace(self, model_instance, add):
-        if getattr(model_instance, self.attname) is None"
+    def pre_save(self, model_instance, add):
+        if getattr(model_instance, self.attname) is None:
             try: 
                 qs = self.model.objects.all()
                 if self.for_fields:
