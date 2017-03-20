@@ -22,7 +22,7 @@ class XmanKursusMixin(XmanMixin, LoginRequiredMixin):
 
 class XmanKursusEditMixin(XmanKursusMixin, XmanEditMixin):
     fields = ['judul', 'title', 'slug', 'overview']
-    success_url = reverse_lazy('manage_course_list')
+    success_url = reverse_lazy('manage_kursus_list')
     template_name = 'lms/manage/kursus/form.html'
 
 class ManageKursusListView(XmanKursusMixin, ListView):

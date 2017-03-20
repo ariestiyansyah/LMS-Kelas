@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {% if object %}
+        Ubah Kursus "{{ object.title }}"
+    {% else %}
+        Buat Kursus Baru 
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <h1>
+        {% if object %}
+        Ubah Kursus "{{ object.title }}"
+        {% else %}
+        Buat Kursus Baru
+        {% endif %}
+    </h1>
+    <div class="modul">
+        <h2>Info Kursus</h2>
+        <form action="" method="POST">
+            {{ form.as_p }}
+            {% csrf_token %}
+        <p><input type="submit" value="Simpan Kursus"></p>
+        </form>
+    </div>
+{% endblock %}
