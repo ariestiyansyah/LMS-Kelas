@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Ubah "{{ kursus.title }}"
+{% endblock %}
+
+{% block content %}
+    <h1>Ubah "{{ kursus.title }}"</h1>
+    <div class="modul">
+        <h2>Modul Kursus</h2>
+        <form action="" method="POST">
+            {{ formset }}
+            {{ formset.management_form }}
+            {% csrf_token %}
+            <input type="submit" class="button" value="Simpan Module">
+        </form>
+    </div>
+{% endblock %}
