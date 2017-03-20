@@ -3,10 +3,10 @@
 Well, it just corporate-learning playground
 
 - [x] KelasX Models
-- [ ] LMS Content for pdf file, text, video and image
+- [x] LMS Content for pdf file, text, video and image
 - [ ] Content Management System
 - [ ] Frontend (This will be hard)
-- [ ] Logistration
+- [x] Logistration
 - [ ] Memcached for Caching
 - [ ] Rest API
 - [ ] uWSGI, NGINX Configuration
