@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User 
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
+from .fields import OrderField
 
 class Judul(models.Model):
     title = models.CharField(max_length=100) # Title of the course
@@ -32,9 +33,13 @@ class Modul(models.Model):
     kursus = models.ForeignKey(Kursus, related_name='modules')
     title = models.CharField(max_length=100)
     description = models.TextField(blank=True)
+    order = OrderField(blank=True, for_fields=['kursus'])
+
+    class Meta:
+        ordering = ['order']
 
     def __str__(self):
-        return self.title
+        return '{}. {}'.format(self.order, self.title)
 
 class Konten(models.Model):
     module = models.ForeignKey(Modul, related_name='contents')  # Define ForeignKey to Modul model
@@ -45,6 +50,10 @@ class Konten(models.Model):
                 'file')})
     object_id = models.PositiveIntegerField() # Store pimary key
     item = GenericForeignKey('content_type', 'object_id') # Generic relation to associate objects from different models
+    order = OrderField(blank=True, for_fields=['modul'])
+
+    class Meta:
+        ordering = ['order']
 
 class KontenBase(models.Model):
     xman = models.ForeignKey(User, related_name='%(class)s_related')
