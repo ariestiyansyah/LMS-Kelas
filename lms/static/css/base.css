@@ -1,0 +1,47 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:500,300,400);
+
+body {
+    margin:0;
+    font-family:'Roboto', sans-serif;
+    font-weight:400;
+    color:#333;
+}
+
+a {
+    color:#3fad37;
+    text-decoration:none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family:'Roboto', sans-serif;
+    font-weight:300;
+}
+
+h1 {
+    background:#efefef;
+    width:100%;
+    overflow:auto;
+    padding:20px 0 20px 40px;
+    margin:0;
+}
+
+.modul {
+    overflow:auto;
+}
+
+.modul h3 {
+    margin:30px 0 0;
+    padding:0;
+    width:100%;
+}
+
+.modul p {
+    margin:10px 0 20px;
+    width:100%;
+    float:left;
+}
+
+.modul {
+    padding:10px 20px;
+    float:left;
+}
