@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Masuk{% endblock %}
+
+{% block content %}
+    <h1>Masuk</h1>
+    <div class="modul">
+        {% if form.errors %}
+            <p>Nama pengguna dan sandi anda salah. Coba lagi</p>
+        {% else %}
+            <p>Gunakan form berikut untuk masuk:</p>
+        {% endif %}
+        <div class="form-masuk">
+            <form action="{% url 'login' %}" method="POST">
+                {{ form.as_p }}
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{{ next }}" />
+                <p><input type="submit" value="login"></p>
+            </form>
+        </div>
+     </div>
+{% endblock %}

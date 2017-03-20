@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block title %}Keluar{% endblock %}
+
+{% block content %}
+  <h1>Logged out</h1>
+  <div class="modul">
+    <p>Anda berhasil keluar. Coba<a href="{% url "login" %}">masuk</a> kembali.</p>
+  </div>
+{% endblock %}
