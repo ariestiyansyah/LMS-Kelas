@@ -58,7 +58,7 @@ class Content(models.Model):
     class Meta:
         ordering = ['order']
 
-class KontenBase(models.Model):
+class ContentBase(models.Model):
     xman = models.ForeignKey(User, related_name='%(class)s_related')
     title = models.CharField(max_length=100)
     created = models.DateTimeField(auto_now_add=True)
@@ -70,14 +70,14 @@ class KontenBase(models.Model):
     def __str__(self):
         return self.title
 
-class Teks(KontenBase):
+class Teks(ContentBase):
     content = models.TextField()
 
-class File(KontenBase):
+class File(ContentBase):
     file = models.FileField(upload_to='files')
 
-class Gambar(KontenBase):
+class Gambar(ContentBase):
     file = models.FileField(upload_to='images')
 
-class Video(KontenBase):
+class Video(ContentBase):
     url = models.URLField()
