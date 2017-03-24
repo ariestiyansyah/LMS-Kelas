@@ -3,7 +3,7 @@ from . import views
 
 urlpatterns = [
         url(r'^account/$',
-            views.ManagecourseListView.as_view(),
+            views.ManageCourseListView.as_view(),
             name='manage_course_list'),
         url(r'^create/$',
             views.CourseCreateView.as_view(),
@@ -15,7 +15,7 @@ urlpatterns = [
             views.CourseDeleteView.as_view(),
             name='course_delete'),
         url(r'^(?P<pk>\d+)/module/$',
-            views.courseModulUpdateView.as_view(),
+            views.CourseModuleUpdateView.as_view(),
             name='course_course_update'),
         url(r'^module/(?P<course_id>\d+)/content/(?P<model_name>\w+)/create/$',
             views.ContentCreateUpdateView.as_view(),
