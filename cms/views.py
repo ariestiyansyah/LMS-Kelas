@@ -19,32 +19,32 @@ class XmanEditMixin(object):
         form.instance.xman = self.request.user
         return super(XmanEditMixin, self).form_valid(form)
 
-class XmanKursusMixin(XmanMixin, LoginRequiredMixin):
-    model = Kursus
+class XmanCourseMixin(XmanMixin, LoginRequiredMixin):
+    model = Course
     fields = ['subject', 'title', 'slug', 'overview']
     success_url = reverse_lazy('manage_course_list')
 
-class XmanKursusEditMixin(XmanKursusMixin, XmanEditMixin):
+class XmanCourseEditMixin(XmanCourseMixin, XmanEditMixin):
     fields = ['subject', 'title', 'slug', 'overview']
     success_url = reverse_lazy('manage_course_list')
     template_name = 'cms/manage/course/form.html'
 
-class ManageKursusListView(XmanKursusMixin, ListView):
+class ManageCourseListView(XmanCourseMixin, ListView):
     template_name = 'cms/manage/course/list.html'
 
-class KursusCreateView(PermissionRequiredMixin, XmanKursusEditMixin, CreateView):
+class CourseCreateView(PermissionRequiredMixin, XmanCourseEditMixin, CreateView):
     permission_required = 'courses.add_course'
 
-class KursusUpdateView(PermissionRequiredMixin, XmanKursusEditMixin, UpdateView):
+class CourseUpdateView(PermissionRequiredMixin, XmanCourseEditMixin, UpdateView):
     permission_required = 'courses.change_course'
     template_name = 'cms/manage/course/form.html'
 
-class KursusDeleteView(PermissionRequiredMixin, XmanKursusEditMixin, DeleteView):
+class CourseDeleteView(PermissionRequiredMixin, XmanCourseEditMixin, DeleteView):
     template_name = 'cms/manage/course/delete.html'
     success_url = reverse_lazy('manage_course_list')
     permission_required = 'courses.delete_course'
 
-class KursusModuleUpdateView(TemplateResponseMixin, View):
+class CourseModuleUpdateView(TemplateResponseMixin, View):
     template_name = 'cms/manage/module/formset.html'
     course = None
 
@@ -55,7 +55,7 @@ class KursusModuleUpdateView(TemplateResponseMixin, View):
         self.course = get_object_or_404(Course,
                                         id=pk,
                                         xman=request.user)
-        return super(KursusModuleUpdateView,
+        return super(CourseModuleUpdateView,
                      self).dispatch(request, pk)
 
     def get(self, request, *args, **kwargs):
@@ -72,7 +72,7 @@ class KursusModuleUpdateView(TemplateResponseMixin, View):
                                         'format': formset})
 
 
-class KontenCreateUpdateView(TemplateResponseMixin, View):
+class ContentCreateUpdateView(TemplateResponseMixin, View):
     module = None
     model = None
     obj = None
@@ -93,9 +93,9 @@ class KontenCreateUpdateView(TemplateResponseMixin, View):
         if id:
             self.obj = get_object_or_404(self.model, id=id, xman=request.user)
 
-        return super(KontenCreateUpdateView, self).dispatch(request, module_id, model_name, id)
+        return super(ContentCreateUpdateView, self).dispatch(request, module_id, model_name, id)
 
-    # get() and pos() method for KontenCreateUpdateView
+    # get() and pos() method for ContentCreateUpdateView
 
     def get(self, request, module_id, model_name, id=None):
         form = self.get_form(self.model, instance=self.obj)
@@ -114,7 +114,7 @@ class KontenCreateUpdateView(TemplateResponseMixin, View):
             obj.save ()
             if not id:
             # New Content Here
-                Konten.objects.create(module=self.module,
+                Content.objects.create(module=self.module,
                                       item=obj)
             return redirect('module_content_list', self.module.id)
 
@@ -122,16 +122,16 @@ class KontenCreateUpdateView(TemplateResponseMixin, View):
                                         'object': self.obj})
 
 # Delete Content
-class KontenDeleteView(View):
+class ContentDeleteView(View):
     def post(self, request, id):
-        konten = get_object_or_404(Content, id=id, module__course__xman=request.user)
+        Content = get_object_or_404(Content, id=id, module__course__xman=request.user)
         module = content.module
         content.item.delete()
         content.delete()
         return redirect('module_content_list', module.id)
 
 # List Module Content
-class ModulKontenListView(TemplateResponseMixin, View):
+class ModuleContentListView(TemplateResponseMixin, View):
     template_name  = 'cms/manage/module/content_list.html'
 
     def get(self, request, module_id):
