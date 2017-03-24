@@ -6,5 +6,5 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/login/$', auth_views.login, name='login'),
     url(r'^accounts/logout/$', auth_views.logout, name='logout'),
-    url(r'^lms/', include('lms.urls')),
+    url(r'^cms/', include('cms.urls')),
 ]

@@ -4,6 +4,7 @@
 
 {% block content %}
     <h1>Kursus Saya</h1>
+
     <div class="modul">
         {% for kursus in object_list %}
         <div class="course-info">
@@ -12,6 +13,9 @@
                 <a href="{% url "kursus_edit" kursus.id %}">Ubah</a>
                 <a href="{% url "kursus_delete" kursus.id %}">Hapus</a>
                 <a href="{% url "kursus_modul_update" kursus.id %}">Ubah Modul</a>
+                {% if kursus.modul.count > 0 %}
+                    <a href="{% url "modul_konten_list" kursus.modul.first.id %}">Manage Konten</a>
+                {% endif %}
             </p>
          </div>
          {% empty %}

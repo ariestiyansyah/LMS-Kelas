@@ -12,7 +12,7 @@
     "slug": "Art",
     "title": "Art"
   },
-  "model": "lms.judul",
+  "model": "cms.judul",
   "pk": 2
 },
 {

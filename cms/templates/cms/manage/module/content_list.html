@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load cms %}
+{% block title %}
+  Modul {{ module.order|add:1 }}: {{ module.title }}
+{% endblock %}
+
+{% block content %}
+{% with kursus=module.kursus %}
+  <h1>Kursus "{{ kursus.title }}"</h1>
+  <div class="contents">
+    <h3>Modul</h3>
+    <ul id="modules">
+      {% for m in kursus.module.all %}
+        <li data-id="{{ m.id }}" {% if m == module %}class="selected"{% endif %}>
+          <a href="{% url "module_content_list" m.id %}">
+            <span>
+              Modul <span class="order">{{ m.order|add:1 }}</span>
+            </span>
+            <br>
+            {{ m.title }}
+          </a>
+        </li>
+      {% empty %}
+        <li>Belum ada module.</li>
+      {% endfor %}
+    </ul>
+    <p><a href="{% url "course_module_update" kursus.id %}">Ubah Modul</a></p>
+  </div>
+  <div class="module">
+    <h2>Modul {{ module.order|add:1 }}: {{ module.title }}</h2>
+    <h3>Konten Modul:</h3>
+
+    <div id="module-contents">
+      {% for content in module.content.all %}
+        <div data-id="{{ content.id }}">
+          {% with item=content.item %}
+          <p>{{ item }} ({{ item|model_name}})</p>
+          <a href="{% url "module_content_update" module.id item|model_name item.id %}">Ubah</a>
+            <form action="{% url "module_content_delete" content.id %}" method="post">
+              <input type="submit" value="Hapus">
+              {% csrf_token %}
+            </form>
+          {% endwith %}
+        </div>
+      {% empty %}
+        <p>Modul ini belum memiliki content.</p>
+      {% endfor %}
+    </div>
+    <hr>
+    <h3>Tambah Konten Baru:</h3>
+    <ul class="content-types">
+      <li><a href="{% url "module_content_create" module.id "teks" %}">Teks</a></li>
+      <li><a href="{% url "module_content_create" module.id "gambar" %}">Gambar</a></li>
+      <li><a href="{% url "module_content_create" module.id "video" %}">Video</a></li>
+      <li><a href="{% url "module_content_create" module.id "file" %}">File</a></li>
+    </ul>
+  </div>
+{% endwith %}
+{% endblock %}
