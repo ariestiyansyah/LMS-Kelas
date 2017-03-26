@@ -6,15 +6,15 @@
     <h1>Kursus Saya</h1>
 
     <div class="modul">
-        {% for kursus in object_list %}
+        {% for course in object_list %}
         <div class="course-info">
-            <h3>{{ kursus.title }}</h3>
+            <h3>{{ course.title }}</h3>
             <p>
-                <a href="{% url "kursus_edit" kursus.id %}">Ubah</a>
-                <a href="{% url "kursus_delete" kursus.id %}">Hapus</a>
-                <a href="{% url "kursus_modul_update" kursus.id %}">Ubah Modul</a>
-                {% if kursus.modul.count > 0 %}
-                    <a href="{% url "modul_konten_list" kursus.modul.first.id %}">Manage Konten</a>
+                <a href="{% url "course_edit" course.id %}">Ubah</a>
+                <a href="{% url "course_delete" course.id %}">Hapus</a>
+                <a href="{% url "course_module_update" course.id %}">Ubah Modul</a>
+                {% if course.module.count > 0 %}
+                    <a href="{% url "module_content_list" course.modules.first.id %}">Manage Konten</a>
                 {% endif %}
             </p>
          </div>

@@ -29,4 +29,10 @@ urlpatterns = [
         url(r'^module/(?P<course_id>\d+)/$',
             views.ModuleContentListView.as_view(),
             name='course_content_list'),
+        url('^module/order/$',
+            views.ModuleOrderView.as_view(),
+            name='module_order'),
+        url('^content/order/$',
+            views.ContentOrderView.as_view(),
+            name='content_order'),
         ]

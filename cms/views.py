@@ -5,7 +5,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.base import TemplateResponseMixin, View
 from django.apps import apps
 from django.forms.models import modelform_factory
-from braces.views import LoginRequiredMixin, PermissionRequiredMixin
+from braces.views import LoginRequiredMixin, PermissionRequiredMixin, JsonRequestResponseMixin, CsrfExemptMixin
 from .models import Course, Module, Content
 from .forms import ModuleFormSet
 
@@ -139,3 +139,20 @@ class ModuleContentListView(TemplateResponseMixin, View):
                                   id=module_id,
                                   course__xman=request.user)
         return self.render_to_response({'module': module})
+
+class ModuleOrderView(CsrfExemptMixin, JsonRequestResponseMixin, View):
+    def post(self, request):
+        for id, order in self.request_json.items():
+            Module.objects.filter(id=id,
+                    course__xman=request.user).update(order=order)
+            return self.render_json_response({'saved': 'OK'})
+
+class ContentOrderView(CsrfExemptMixin,
+                        JsonRequestResponseMixin,
+                        View):
+    def post(self, request):
+        for id, order in self.request_json.items():
+            Content.object.filter(id=id),
+                            module__course__xman=request.user) \
+                            .update(order=order)
+        return self.render_json_response({'saved': 'OK'})
